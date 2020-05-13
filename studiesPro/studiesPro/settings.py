@@ -43,9 +43,16 @@ INSTALLED_APPS = [
     'guardian',
 
     'students.apps.StudentsConfig',
-
-    
-
+    'assignment.apps.AssignmentConfig',
+    'book.apps.BookConfig',
+    'course.apps.CourseConfig',
+    'delvas.apps.DelvasConfig',
+    'exam.apps.ExamConfig',
+    'material.apps.MaterialConfig',
+    'provider.apps.ProviderConfig',
+    'semester.apps.SemesterConfig',
+    'sshipevent.apps.SshipeventConfig',
+    'teacher.apps.TeacherConfig',
 ]
 
 MIDDLEWARE = [
