@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from material.models import Material
 from provider.serializers import ProviderSerializer
-
+from students.serializer import StudentSerializer
 
 class MaterialSerializer(serializers.ModelSerializer):
 
@@ -13,5 +13,6 @@ class MaterialSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'price',
-            'provider'
+            'provider',
+            'student'
         )
