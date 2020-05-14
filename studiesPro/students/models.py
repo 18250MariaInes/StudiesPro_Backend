@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class StudentManager(BaseUserManager):
-    def create_user(self, email, name, lastname, carne, sship, password=None):
+    def create_user(self, email, name, lastname, carne, sship, password):
             if not email:
                     raise ValueError('Users must have an email address')
             if not name:
@@ -30,7 +30,6 @@ class StudentManager(BaseUserManager):
     def create_superuser(self, email, name, lastname, carne, sship, password):
             user = self.create_user(
                 email=self.normalize_email(email),
-                password=password,
                 name=name,
                 lastname=lastname,
                 carne=carne,
@@ -39,6 +38,7 @@ class StudentManager(BaseUserManager):
             user.is_admin = True
             user.is_staff = True
             user.is_superuser = True
+            user.set_password(password)
             user.save(using=self._db)
             return user
 
@@ -53,10 +53,10 @@ class Student(AbstractBaseUser):
         is_active				= models.BooleanField(default=True)
         is_staff				= models.BooleanField(default=False)
         is_superuser			= models.BooleanField(default=False)
-        carne                   = models.IntegerField(null=False)
+        carne                   = models.IntegerField(null=True)
         name                    = models.CharField(max_length=200)
         lastname                = models.CharField(max_length=200)
-        sship                   = models.IntegerField(null=False)
+        sship                   = models.IntegerField(null=True)
 
         USERNAME_FIELD='email'
         REQUIRED_FIELD=['name', 'lastname', 'carne', 'sship']
