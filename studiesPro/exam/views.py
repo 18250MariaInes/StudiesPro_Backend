@@ -46,22 +46,12 @@ class ExamViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         exam = serializer.save()
-        student = self.request.user
-        assign_perm('exam.view_exam', student, exam)
-        assign_perm('exam.change_exam', student, exam)
-        assign_perm('exam.destroy_exam', student, exam)
+        user = self.request.user
+        assign_perm('exam.view_exam', user, exam)
+        assign_perm('exam.change_exam', user, exam)
+        assign_perm('exam.destroy_exam', user, exam)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'])
-    def notify(self, request, pk=None):
-        exam = self.get_object()
-
-        # TODO: conectarme a FCM y mandar la push
-        print("Temas a evaluar: ", exam.topics)
-
-        return Response({
-            'status': 'ok'
-        })
 
     @action(detail=True, url_path='update-title', methods=['patch'])
     def update_title(self, request, pk=None):

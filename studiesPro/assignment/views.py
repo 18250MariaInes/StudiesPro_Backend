@@ -6,7 +6,10 @@ from rest_framework.response import Response
 from permissions.services import APIPermissionClassFactory
 from assignment.models import Assignment
 from assignment.serializers import AssignmentSerializer
-
+from teacher.models import Teacher 
+from course.models import Course
+from teacher.serializer import TeacherSerializer
+from course.serializer import CourseSerializer
 
 
 def evaluar(user, obj, request):
@@ -46,22 +49,12 @@ class AssignmentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         assignment = serializer.save()
-        student = self.request.user
-        assign_perm('assignment.view_assignment', student, assignment)
-        assign_perm('assignment.change_assignment', student, assignment)
-        assign_perm('assignment.destroy_assignment', student, assignment)
+        user = self.request.user
+        assign_perm('assignment.view_assignment', user, assignment)
+        assign_perm('assignment.change_assignment', user, assignment)
+        assign_perm('assignment.destroy_assignment', user, assignment)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'])
-    def notify(self, request, pk=None):
-        assignment = self.get_object()
-
-        # TODO: conectarme a FCM y mandar la push
-        print("Responsable: ", assignment.student.name)
-
-        return Response({
-            'status': 'ok'
-        })
 
     @action(detail=True, url_path='update-title', methods=['patch'])
     def update_title(self, request, pk=None):
@@ -110,23 +103,3 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         assignment.delete()
         print ("Tarea eliminada")
 
-    #@action(detail=True, url_path='happy-bday', methods=['post'])
-    #def happy_birthday(self, request, pk=None):
-    #    assignment = self.get_object()
-    #    self.increment_age(pet)
-    #    print ("Happy birthday {}!".format(pet.name))
-    #    return Response(PetSerializer(pet).data)
-    
-
-    #@action(detail=False, url_path='happy-bday', methods=['post'])
-    #def bulk_happy_birthday(self, request):
-    #    for pet in Pet.objects.all():
-    #        # TODO: send push
-    #        self.increment_age(pet)
-    #
-    #    return Response({})
-
-    #def increment_age(self, pet):
-    #    pet.age += 1
-    #    pet.save()
-    #    print ("Happy birthday {}!".format(pet.name))
