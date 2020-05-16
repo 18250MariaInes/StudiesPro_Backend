@@ -10,7 +10,7 @@ from book.serializer import BookSerializer
 def evaluate(user, obj, request):
     return user.name == obj.student.name
 
-    class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = (

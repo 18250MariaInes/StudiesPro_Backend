@@ -29,7 +29,7 @@ from exam.views import ExamViewSet
 from material.views import MaterialViewSet
 from provider.views import ProviderViewSet
 from semester.views import SemesterViewSet
-from sshipevent.views import SshipmentViewSet
+from sshipevent.views import SshipeventViewSet
 from students.views import StudentViewSet
 from teacher.views import TeacherViewSet
 
@@ -44,7 +44,7 @@ router.register(r'exam', ExamViewSet)
 router.register(r'material', MaterialViewSet)
 router.register(r'provider', ProviderViewSet)
 router.register(r'semester', SemesterViewSet)
-router.register(r'sshipevent', SshipmentViewSet)
+router.register(r'sshipevent', SshipeventViewSet)
 router.register(r'students', StudentViewSet)
 router.register(r'teacher', TeacherViewSet)
 

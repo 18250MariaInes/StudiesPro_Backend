@@ -17,14 +17,14 @@ from provider.models import Provider
 
 from students.serializer import StudentSerializer
 from course.serializer import CourseSerializer 
-from sshipevent.serializer import SshipeventSerializer 
+from sshipevent.serializers import SshipeventSerializer 
 from delvas.serializer import DelvasSerializer 
 from book.serializer import BookSerializer 
-from material.serializer import MaterialSerializer
-from exam.serializer import ExamSerializer 
-from assignment.serializer import AssignmentSerializer 
+from material.serializers import MaterialSerializer
+from exam.serializers import ExamSerializer 
+from assignment.serializers import AssignmentSerializer 
 from teacher.serializer import TeacherSerializer
-from provider.serializer import ProviderSerializer
+from provider.serializers import ProviderSerializer
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset= Student.objects.all()

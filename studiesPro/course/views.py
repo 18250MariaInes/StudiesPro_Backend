@@ -8,8 +8,8 @@ from course.models import Course
 from exam.models import Exam
 from assignment.models import Assignment
 from course.serializer import CourseSerializer
-from exam.serializer import ExamSerializer
-from assignment.serializer import AssignmentSerializer
+from exam.serializers import ExamSerializer
+from assignment.serializers import AssignmentSerializer
 
 def evaluate(user, obj, request):
     return user.name == obj.student.name

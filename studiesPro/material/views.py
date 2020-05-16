@@ -13,7 +13,7 @@ def evaluar(user, obj, request):
     return user.name == obj.student.name
 
 
-class materialViewSet(viewsets.ModelViewSet):
+class MaterialViewSet(viewsets.ModelViewSet):
     queryset = Material.objects.all()
     serializer_class = MaterialSerializer
     permission_classes = (

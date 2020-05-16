@@ -4,8 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from permissions.services import APIPermissionClassFactory
-from sship.models import Sshipevent
-from sship.serializers import SshipeventSerializer
+from sshipevent.models import Sshipevent
+from sshipevent.serializers import SshipeventSerializer
 
 
 

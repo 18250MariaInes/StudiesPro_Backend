@@ -10,7 +10,7 @@ from delvas.serializer import DelvasSerializer
 def evaluate(user, obj, request):
     return user.name == obj.student.name
 
-    class DelvasViewSet(viewsets.ModelViewSet):
+class DelvasViewSet(viewsets.ModelViewSet):
     queryset = Delvas.objects.all()
     serializer_class = DelvasSerializer
     permission_classes = (

@@ -4,8 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from permissions.services import APIPermissionClassFactory
-from semester.model import Semester 
-from course.model import Course 
+from semester.models import Semester 
+from course.models import Course 
 from semester.serializer import SemesterSerializer 
 from course.serializer import CourseSerializer 
 

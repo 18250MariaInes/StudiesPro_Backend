@@ -2,8 +2,8 @@ from rest_framework import serializers
 from datetime import date
 
 from exam.models import Exam
-from students.serializers import StudentSerializer
-from course.serializers import CourseSerializer
+from students.serializer import StudentSerializer
+from course.serializer import CourseSerializer
 
 
 class ExamSerializer(serializers.ModelSerializer):

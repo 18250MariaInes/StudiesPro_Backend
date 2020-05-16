@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from sshipevent.models import Sshipevent
-from students.serializers import StudentSerializer
+from students.serializer import StudentSerializer
 
 
 class SshipeventSerializer(serializers.ModelSerializer):
