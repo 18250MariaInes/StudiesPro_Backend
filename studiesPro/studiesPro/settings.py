@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'semester.apps.SemesterConfig',
     'sshipevent.apps.SshipeventConfig',
     'teacher.apps.TeacherConfig',
+    'permissions.apps.PermissionsConfig'
 ]
 
 MIDDLEWARE = [

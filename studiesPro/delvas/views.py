@@ -1,3 +1,39 @@
-from django.shortcuts import render
+from guardian.shortcuts import assign_perm
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
-# Create your views here.
+from permissions.services import APIPermissionClassFactory
+from delvas.models import Delvas
+from delvas.serializer import DelvasSerializer
+
+def evaluate(user, obj, request):
+    return user.name == obj.student.name
+
+    class DelvasViewSet(viewsets.ModelViewSet):
+    queryset = Delvas.objects.all()
+    serializer_class = DelvasSerializer
+    permission_classes = (
+        APIPermissionClassFactory(
+            name='DelvasPermission',
+            permission_configuration={
+                'base': {
+                    'create': True,
+                    'list': True,
+                },
+                'instance': {
+                    'retrieve': 'delvas.view_delvas',
+                    'destroy': False,
+                    'update': True,
+                    'partial_update': 'delvas.change_delvas'
+                }
+            }
+        ),
+    )
+
+    def perform_create(self, serializer):
+        delvas = serializer.save()
+        user = self.request.user
+        assign_perm('delvas.view_delvas', user, delvas)
+        assign_perm('delvas.change_delvas', user, delvas)
+        return Response(serializer.data)
