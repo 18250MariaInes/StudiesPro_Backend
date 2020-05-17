@@ -6,5 +6,5 @@ class Provider(models.Model):
     email = models.EmailField(verbose_name="email", max_length=60, default="tettsa@gmail.com")
 
     def __str__(self):
-        return 'Provider: {}'.format(self.name)
+        return self.name
 

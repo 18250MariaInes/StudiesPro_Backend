@@ -6,5 +6,5 @@ class Teacher(models.Model):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
 
     def __str__(self):
-        return 'Teacher: {}'.format(self.name)
+        return self.name
 

@@ -43,7 +43,7 @@ class StudentViewSet(viewsets.ModelViewSet):
         student = self.get_object()
         sshipevents_user = []
         for sshipevent in Sshipevent.objects.filter(student=student):
-            sshipevents_user.append(CourseSerializer(sshipevent).data)
+            sshipevents_user.append(SshipeventSerializer(sshipevent).data)
         return Response(sshipevents_user)
 
     @action(detail=True, methods=['get'])
@@ -75,7 +75,7 @@ class StudentViewSet(viewsets.ModelViewSet):
         student = self.get_object()
         exams_user = []
         for exam in Exam.objects.filter(student=student):
-            exams_user.append(MaterialSerializer(exam).data)
+            exams_user.append(ExamSerializer(exam).data)
         return Response(exams_user)
 
     @action(detail=True, methods=['get'])
@@ -83,7 +83,7 @@ class StudentViewSet(viewsets.ModelViewSet):
         student = self.get_object()
         assignments_user = []
         for assignment in Assignment.objects.filter(student=student):
-            assignments_user.append(MaterialSerializer(assignment).data)
+            assignments_user.append(AssignmentSerializer(assignment).data)
         return Response(assignments_user)
 
     @action(detail=True, methods=['get'])
@@ -92,7 +92,11 @@ class StudentViewSet(viewsets.ModelViewSet):
         course_user = []
         teacher_course_user = []
         for course in Course.objects.filter(student=student):
-            for teacher in Teacher.objects.filter(teacher=course.teacher):
+            #print(CourseSerializer(course).data["teacher"])
+            t=Teacher.objects.get(id=CourseSerializer(course).data["teacher"])
+            #print (t)
+            for teacher in Teacher.objects.filter(name=t):
+                #print(TeacherSerializer(teacher).data)
                 teacher_course_user.append(TeacherSerializer(teacher).data) 
         return Response(teacher_course_user)
     
@@ -101,9 +105,10 @@ class StudentViewSet(viewsets.ModelViewSet):
         student = self.get_object()
         provider_material_user = []
         for material in Material.objects.filter(student=student):
-            for provider in Provider.objects.filter(provider=material.provider):
-                 provider_material_user.append(ProviderSerializer(material).data)
-        return Response(teacher_course_user) 
+            p=Provider.objects.get(id=MaterialSerializer(material).data["provider"])
+            for provider in Provider.objects.filter(name=p):
+                provider_material_user.append(ProviderSerializer(provider).data)
+        return Response(provider_material_user) 
 
         
 
