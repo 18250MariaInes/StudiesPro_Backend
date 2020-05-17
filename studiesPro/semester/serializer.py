@@ -10,5 +10,6 @@ class SemesterSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'beginning',
-            'end'
+            'end',
+            'student'
         )

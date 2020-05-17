@@ -11,5 +11,6 @@ class TeacherSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'lastname',
-            'email'
+            'email',
+            'student'
         )
