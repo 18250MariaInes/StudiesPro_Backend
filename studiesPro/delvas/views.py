@@ -2,7 +2,7 @@ from guardian.shortcuts import assign_perm
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+import datetime
 from permissions.services import APIPermissionClassFactory
 from delvas.models import Delvas
 from delvas.serializer import DelvasSerializer
@@ -55,6 +55,7 @@ class DelvasViewSet(viewsets.ModelViewSet):
         delvas = self.get_object()
 
         new_date = request.data.get('new_date')
+        new_date = datetime.datetime.strptime(new_date, '%Y-%m-%d').date()
         delvas.date = new_date
         delvas.save()
 

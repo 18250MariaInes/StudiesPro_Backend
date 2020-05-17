@@ -3,6 +3,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+import datetime
+
 from permissions.services import APIPermissionClassFactory
 from assignment.models import Assignment
 from assignment.serializers import AssignmentSerializer
@@ -81,7 +83,9 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         assignment = self.get_object()
 
         new_deadline = request.data.get('new_deadline')
+        new_deadline = datetime.datetime.strptime(new_deadline, '%Y-%m-%d').date()
         assignment.deadline = new_deadline
+
         assignment.save()
 
         return Response(AssignmentSerializer(assignment).data)
@@ -89,9 +93,9 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     @action(detail=True, url_path='update-course', methods=['patch'])
     def update_course(self, request, pk=None):
         assignment = self.get_object()
-
         new_course = request.data.get('new_course')
-        assignment.course = new_course
+        courseNew = Course.objects.get(id=new_course)
+        assignment.course = courseNew
         assignment.save()
 
         return Response(AssignmentSerializer(assignment).data)

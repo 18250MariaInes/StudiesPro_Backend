@@ -2,10 +2,12 @@ from guardian.shortcuts import assign_perm
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+import datetime
 from permissions.services import APIPermissionClassFactory
 from exam.models import Exam
 from exam.serializers import ExamSerializer
+from course.models import Course
+from course.serializer import CourseSerializer
 
 
 
@@ -78,6 +80,7 @@ class ExamViewSet(viewsets.ModelViewSet):
         exam = self.get_object()
 
         new_date = request.data.get('new_date')
+        new_date = datetime.datetime.strptime(new_date, '%Y-%m-%d').date()
         exam.date = new_date
         exam.save()
 
@@ -88,7 +91,8 @@ class ExamViewSet(viewsets.ModelViewSet):
         exam = self.get_object()
 
         new_course = request.data.get('new_course')
-        exam.course = new_course
+        courseNew = Course.objects.get(id=new_course)
+        exam.course = courseNew
         exam.save()
 
         return Response(ExamSerializer(exam).data)

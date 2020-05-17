@@ -2,7 +2,7 @@ from guardian.shortcuts import assign_perm
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+import datetime
 from permissions.services import APIPermissionClassFactory
 from semester.models import Semester 
 from course.models import Course 
@@ -56,6 +56,7 @@ class SemesterViewSet(viewsets.ModelViewSet):
         semester = self.get_object()
 
         new_beginning = request.data.get('new_beginning')
+        new_beginning = datetime.datetime.strptime(new_beginning, '%Y-%m-%d').date()
         semester.beginning = new_beginning
         semester.save()
 
@@ -66,7 +67,8 @@ class SemesterViewSet(viewsets.ModelViewSet):
         semester = self.get_object()
 
         new_end = request.data.get('new_end')
-        semester.end = new_course
+        new_end = datetime.datetime.strptime(new_end, '%Y-%m-%d').date()
+        semester.end = new_end
         semester.save()
 
         return Response(SemesterSerializer(semester).data)
