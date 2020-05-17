@@ -25,7 +25,10 @@ class BookViewSet(viewsets.ModelViewSet):
                     'retrieve': 'book.view_book',
                     'destroy': False,
                     'update': True,
-                    'partial_update': 'book.change_book'
+                    'partial_update': 'book.change_book',
+                    'update_title': evaluate,
+                    'update_description': evaluate,
+                    'update_date': evaluate,
                 }
             }
         ),
@@ -37,3 +40,33 @@ class BookViewSet(viewsets.ModelViewSet):
         assign_perm('book.change_book', user, book)
         assign_perm('book.change_book', user, book)
         return Response(serializer.data)
+
+    @action(detail=True, url_path='update-title', methods=['patch'])
+    def update_title(self, request, pk=None):
+        book = self.get_object()
+
+        new_title = request.data.get('new_title')
+        book.title = new_title
+        book.save()
+
+        return Response(BookSerializer(book).data)
+    
+    @action(detail=True, url_path='update-description', methods=['patch'])
+    def update_description(self, request, pk=None):
+        book = self.get_object()
+
+        new_description = request.data.get('new_description')
+        book.description = new_description
+        book.save()
+
+        return Response(BookSerializer(book).data)
+    
+    @action(detail=True, url_path='update-date', methods=['patch'])
+    def update_date(self, request, pk=None):
+        book = self.get_object()
+
+        new_date = request.data.get('new_date')
+        book.date = new_date
+        book.save()
+
+        return Response(BookSerializer(book).data)

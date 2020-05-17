@@ -25,7 +25,9 @@ class DelvasViewSet(viewsets.ModelViewSet):
                     'retrieve': 'delvas.view_delvas',
                     'destroy': False,
                     'update': True,
-                    'partial_update': 'delvas.change_delvas'
+                    'partial_update': 'delvas.change_delvas',
+                    'update_name': evaluate,
+                    'delete_date': evaluate                    
                 }
             }
         ),
@@ -37,3 +39,23 @@ class DelvasViewSet(viewsets.ModelViewSet):
         assign_perm('delvas.view_delvas', user, delvas)
         assign_perm('delvas.change_delvas', user, delvas)
         return Response(serializer.data)
+    
+    @action(detail=True, url_path='update-name', methods=['patch'])
+    def update_name(self, request, pk=None):
+        delvas = self.get_object()
+
+        new_name = request.data.get('new_name')
+        delvas.name = new_name
+        delvas.save()
+
+        return Response(DelvasSerializer(delvas).data)
+    
+    @action(detail=True, url_path='update-date', methods=['patch'])
+    def update_date(self, request, pk=None):
+        delvas = self.get_object()
+
+        new_date = request.data.get('new_date')
+        delvas.date = new_date
+        delvas.save()
+
+        return Response(DelvasSerializer(delvas).data)

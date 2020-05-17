@@ -28,7 +28,9 @@ class SemesterViewSet(viewsets.ModelViewSet):
                     'destroy': False,
                     'update': True,
                     'partial_update': 'semester.change_semester',
-                    'courses':evaluate
+                    'courses':evaluate,
+                    'update_beginning':evaluate,
+                    'update_end':evaluate
                 }
             }
         ),
@@ -48,4 +50,24 @@ class SemesterViewSet(viewsets.ModelViewSet):
         for course in Course.objects.filter(semester=semester):
             courses_semester.append(CourseSerializer(course).data)
         return Response(courses_semester)
+    
+    @action(detail=True, url_path='update-beginning', methods=['patch'])
+    def update_beginning(self, request, pk=None):
+        semester = self.get_object()
+
+        new_beginning = request.data.get('new_beginning')
+        semester.beginning = new_beginning
+        semester.save()
+
+        return Response(SemesterSerializer(semester).data)
+
+    @action(detail=True, url_path='update-end', methods=['patch'])
+    def update_end(self, request, pk=None):
+        semester = self.get_object()
+
+        new_end = request.data.get('new_end')
+        semester.end = new_course
+        semester.save()
+
+        return Response(SemesterSerializer(semester).data)
 

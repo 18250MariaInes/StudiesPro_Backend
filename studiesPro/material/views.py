@@ -82,16 +82,6 @@ class MaterialViewSet(viewsets.ModelViewSet):
         material.save()
 
         return Response(MaterialSerializer(material).data)
-    
-    @action(detail=True, url_path='update-provider', methods=['patch'])
-    def update_provider(self, request, pk=None):
-        material = self.get_object()
-
-        new_provider = request.data.get('new_provider')
-        material.provider = new_provider
-        material.save()
-
-        return Response(MaterialSerializer(material).data)
 
     @action(detail=True, url_path='update-description', methods=['patch'])
     def update_description(self, request, pk=None):

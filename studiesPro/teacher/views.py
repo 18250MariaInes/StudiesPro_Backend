@@ -30,7 +30,10 @@ class TeacherViewSet(viewsets.ModelViewSet):
                     'destroy': False,
                     'update': True,
                     'partial_update': 'teacher.change_teacher',
-                    'courses':evaluate
+                    'courses':evaluate,
+                    'update_name':evaluate,
+                    'update_lastname':evaluate,
+                    'update_email':evaluate
                 }
             }
         ),
@@ -50,3 +53,33 @@ class TeacherViewSet(viewsets.ModelViewSet):
         for course in Course.objects.filter(teacher=teacher):
             courses_teacher.append(CourseSerializer(course).data)
         return Response(courses_teacher)
+    
+    @action(detail=True, url_path='update-name', methods=['patch'])
+    def update_name(self, request, pk=None):
+        teacher = self.get_object()
+
+        new_name = request.data.get('new_name')
+        teacher.name = new_name
+        teacher.save()
+
+        return Response(TeacherSerializer(teacher).data)
+
+    @action(detail=True, url_path='update-lastname', methods=['patch'])
+    def update_lastname(self, request, pk=None):
+        teacher = self.get_object()
+
+        new_lastname = request.data.get('new_lastname')
+        teacher.lastname = new_lastname
+        teacher.save()
+
+        return Response(TeacherSerializer(teacher).data)
+    
+    @action(detail=True, url_path='update-email', methods=['patch'])
+    def update_email(self, request, pk=None):
+        teacher = self.get_object()
+
+        new_email = request.data.get('new_email')
+        teacher.email = new_email
+        teacher.save()
+
+        return Response(TeacherSerializer(teacher).data)

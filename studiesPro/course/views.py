@@ -31,7 +31,8 @@ class CourseViewSet(viewsets.ModelViewSet):
                     'update': True,
                     'partial_update': 'course.change_course',
                     'exams':evaluate,
-                    'assignments':evaluate
+                    'assignments':evaluate,
+                    'update_name': evaluate
                 }
             }
         ),
@@ -59,4 +60,15 @@ class CourseViewSet(viewsets.ModelViewSet):
         for assign in Assignment.objects.filter(course=course):
              assignments_course.append(AssignmentSerializer(assign).data)
         return Response(assignments_course)
+    
+    @action(detail=True, url_path='update-name', methods=['patch'])
+    def update_name(self, request, pk=None):
+        course = self.get_object()
 
+        new_name = request.data.get('new_name')
+        course.name = new_name
+        course.save()
+
+        return Response(CourseSerializer(course).data)
+    
+    
