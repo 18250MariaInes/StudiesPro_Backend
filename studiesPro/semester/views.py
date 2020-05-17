@@ -45,7 +45,7 @@ class SemesterViewSet(viewsets.ModelViewSet):
     def courses(self, request, pk=None):
         semester = self.get_object()
         courses_semester=[]
-        for course in Event.objects.filter(semester=semester):
+        for course in Course.objects.filter(semester=semester):
             courses_semester.append(CourseSerializer(course).data)
         return Response(courses_semester)
 
