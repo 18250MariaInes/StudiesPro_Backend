@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from permissions.services import APIPermissionClassFactory
 from assignment.models import Assignment
 from assignment.serializers import AssignmentSerializer
-from teacher.models import Teacher 
+from students.models import Student 
 from course.models import Course
-from teacher.serializer import TeacherSerializer
+from students.serializer import StudentSerializer
 from course.serializer import CourseSerializer
 
 
