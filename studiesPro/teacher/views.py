@@ -12,7 +12,7 @@ from teacher.serializer import TeacherSerializer
 from course.serializer import CourseSerializer
 
 def evaluate(user, obj, request):
-    return user.name == obj.course.student.name
+    return user.name == obj.student.name
 
 class TeacherViewSet(viewsets.ModelViewSet):
     queryset = Teacher.objects.all()
@@ -48,5 +48,5 @@ class TeacherViewSet(viewsets.ModelViewSet):
         teacher = self.get_object()
         courses_teacher=[]
         for course in Course.objects.filter(teacher=teacher):
-            courses_teacher.append(EventSerializer(course).data)
+            courses_teacher.append(CourseSerializer(course).data)
         return Response(courses_teacher)

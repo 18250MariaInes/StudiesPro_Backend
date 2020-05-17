@@ -5,12 +5,13 @@ from rest_framework.response import Response
 
 from permissions.services import APIPermissionClassFactory
 from provider.models import Provider
+from material.models import Material
 from provider.serializers import ProviderSerializer
-
+from material.serializers import MaterialSerializer
 
 
 def evaluar(user, obj, request):
-    return user.name == obj.material.student.name
+    return user.name == obj.student.name
 
 
 class ProviderViewSet(viewsets.ModelViewSet):
@@ -35,6 +36,7 @@ class ProviderViewSet(viewsets.ModelViewSet):
                     'update_address': evaluar,
                     'update_email': evaluar,
                     'delete_provider': evaluar,
+                    'materials':evaluar,
                     # 'update_permissions': 'users.add_permissions'
                     # 'archive_all_students': phase_user_belongs_to_school,
                     # 'add_clients': True,
@@ -98,3 +100,12 @@ class ProviderViewSet(viewsets.ModelViewSet):
         provider = self.get_object()
         provider.delete()
         print ("Provider eliminado")
+    
+    @action(detail=True, methods=['get'])
+    def materials(self, request, pk=None):
+        provider = self.get_object()
+        material_provider = []
+        for material in Material.objects.filter(provider=provider):
+            material_provider.append(MaterialSerializer(material).data)
+        return Response(material_provider)
+    

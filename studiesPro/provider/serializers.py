@@ -11,5 +11,6 @@ class ProviderSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'address',
-            'email'
+            'email',
+            'student'
         )
