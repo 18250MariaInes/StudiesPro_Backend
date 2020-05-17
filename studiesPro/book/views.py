@@ -23,7 +23,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 },
                 'instance': {
                     'retrieve': 'book.view_book',
-                    'destroy': False,
+                    'destroy': evaluate,
                     'update': True,
                     'partial_update': 'book.change_book',
                     'update_title': evaluate,
@@ -37,7 +37,7 @@ class BookViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         book = serializer.save()
         user = self.request.user
-        assign_perm('book.change_book', user, book)
+        assign_perm('book.view_book', user, book)
         assign_perm('book.change_book', user, book)
         return Response(serializer.data)
 

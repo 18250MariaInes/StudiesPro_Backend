@@ -25,7 +25,7 @@ class SemesterViewSet(viewsets.ModelViewSet):
                 },
                 'instance': {
                     'retrieve': 'semester.view_semester',
-                    'destroy': False,
+                    'destroy': evaluate,
                     'update': True,
                     'partial_update': 'semester.change_semester',
                     'courses':evaluate,

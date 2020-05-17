@@ -23,11 +23,11 @@ class DelvasViewSet(viewsets.ModelViewSet):
                 },
                 'instance': {
                     'retrieve': 'delvas.view_delvas',
-                    'destroy': False,
+                    'destroy': evaluate,
                     'update': True,
                     'partial_update': 'delvas.change_delvas',
                     'update_name': evaluate,
-                    'delete_date': evaluate                    
+                    'update_date': evaluate               
                 }
             }
         ),
