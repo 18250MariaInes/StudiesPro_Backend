@@ -27,7 +27,7 @@ class TeacherViewSet(viewsets.ModelViewSet):
                 },
                 'instance': {
                     'retrieve': 'teacher.view_teacher',
-                    'destroy': False,
+                    'destroy': evaluate,
                     'update': True,
                     'partial_update': 'teacher.change_teacher',
                     'courses':evaluate,
