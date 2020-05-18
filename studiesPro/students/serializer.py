@@ -12,5 +12,18 @@ class StudentSerializer(serializers.ModelSerializer):
             'name',
             'lastname',
             'carne',
-            'sship'
+            'sship',
+            'email',
+            'password'
         )
+        extra_kwargs = {
+				'password': {'write_only': True},
+		}
+
+    def save(self):
+        student = Student(
+            email=self.validated_data['email'])
+        password = self.validated_data['password']
+        student.set_password(password)
+        student.save()
+        return student

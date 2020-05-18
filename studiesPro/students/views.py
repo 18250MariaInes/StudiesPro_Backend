@@ -30,6 +30,30 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset= Student.objects.all()
     serializer_class=StudentSerializer
 
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = (
+        APIPermissionClassFactory(
+            name='StudentPermission',
+            permission_configuration={
+                'base': {
+                    'create': True,
+                },
+                'instance': {
+                    'retrieve': 'student.view_student',
+                    'partial_update': 'student.change_student',
+                }
+            }
+        ),
+    )
+
+    def perform_create(self, serializer):
+        student = serializer.save()
+        user = self.request.user
+        assign_perm('student.view_student', user, student)
+        assign_perm('student.change_student', user, student)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['get'])
     def courses(self, request, pk=None):
         student = self.get_object()
