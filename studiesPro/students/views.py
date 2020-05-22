@@ -122,16 +122,20 @@ class StudentViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def teachers(self, request, pk=None):
         student = self.get_object()
-        course_user = []
-        teacher_course_user = []
-        for course in Course.objects.filter(student=student):
-            #print(CourseSerializer(course).data["teacher"])
-            t=Teacher.objects.get(id=CourseSerializer(course).data["teacher"])
-            #print (t)
-            for teacher in Teacher.objects.filter(name=t):
-                #print(TeacherSerializer(teacher).data)
-                teacher_course_user.append(TeacherSerializer(teacher).data) 
-        return Response(teacher_course_user)
+        #course_user = []
+        #teacher_course_user = []
+        #for course in Course.objects.filter(student=student):
+        #    #print(CourseSerializer(course).data["teacher"])
+        #    t=Teacher.objects.get(id=CourseSerializer(course).data["teacher"])
+        #    #print (t)
+        #    for teacher in Teacher.objects.filter(name=t):
+        #        #print(TeacherSerializer(teacher).data)
+        #        teacher_course_user.append(TeacherSerializer(teacher).data) 
+        #return Response(teacher_course_user)
+        teachers_user = []
+        for teacher in Teacher.objects.filter(student=student):
+            teachers_user.append(TeacherSerializer(teacher).data)
+        return Response(teachers_user)
     
     @action(detail=True, methods=['get'])
     def providers(self, request, pk=None):
