@@ -42,6 +42,15 @@ class StudentViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'student.view_student',
                     'partial_update': 'student.change_student',
+                    'teachers': 'student.view_student',
+                    'courses': 'student.view_student',
+                    'sshipevents': 'student.view_student',
+                    'delvas': 'student.view_student',
+                    'books': 'student.view_student',
+                    'materials': 'student.view_student',
+                    'exams': 'student.view_student',
+                    'assignments': 'student.view_student',
+                    'providers': 'student.view_student',
                 }
             }
         ),
