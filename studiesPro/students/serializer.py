@@ -22,7 +22,12 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def save(self):
         student = Student(
-            email=self.validated_data['email'])
+            email = self.validated_data['email'],
+            name = self.validated_data['name'],
+            lastname = self.validated_data['lastname'],
+            carne = self.validated_data['carne'],
+            sship = self.validated_data['sship']
+        )
         password = self.validated_data['password']
         student.set_password(password)
         student.save()
