@@ -140,12 +140,16 @@ class StudentViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def providers(self, request, pk=None):
         student = self.get_object()
-        provider_material_user = []
-        for material in Material.objects.filter(student=student):
-            p=Provider.objects.get(id=MaterialSerializer(material).data["provider"])
-            for provider in Provider.objects.filter(name=p):
-                provider_material_user.append(ProviderSerializer(provider).data)
-        return Response(provider_material_user) 
+        provider_user = []
+        #"""for material in Material.objects.filter(student=student):
+         #   p=Provider.objects.get(id=MaterialSerializer(material).data["provider"])
+         #   for provider in Provider.objects.filter(name=p):
+          #      provider_material_user.append(ProviderSerializer(provider).data)
+        #return Response(provider_material_user) """
+        
+        for provider in Provider.objects.filter(student=student):
+            provider_user.append(ProviderSerializer(provider).data)
+        return Response(provider_user)
 
    
         
