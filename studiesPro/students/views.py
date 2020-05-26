@@ -14,6 +14,7 @@ from exam.models import Exam
 from assignment.models import Assignment 
 from teacher.models import Teacher
 from provider.models import Provider
+from semester.models import Semester
 
 from students.serializer import StudentSerializer
 from course.serializer import CourseSerializer 
@@ -25,6 +26,7 @@ from exam.serializers import ExamSerializer
 from assignment.serializers import AssignmentSerializer 
 from teacher.serializer import TeacherSerializer
 from provider.serializers import ProviderSerializer
+from semester.serializer import SemesterSerializer
 
 class StudentViewSet(viewsets.ModelViewSet):
     queryset= Student.objects.all()
@@ -51,6 +53,7 @@ class StudentViewSet(viewsets.ModelViewSet):
                     'exams': 'student.view_student',
                     'assignments': 'student.view_student',
                     'providers': 'student.view_student',
+                    'semesters': 'student.view_student',
                 }
             }
         ),
@@ -150,6 +153,14 @@ class StudentViewSet(viewsets.ModelViewSet):
         for provider in Provider.objects.filter(student=student):
             provider_user.append(ProviderSerializer(provider).data)
         return Response(provider_user)
+
+    @action(detail=True, methods=['get'])
+    def semesters(self, request, pk=None):
+        student = self.get_object()
+        semester_user = [] 
+        for semester in Semester.objects.filter(student=student):
+            semester_user.append(SemesterSerializer(semester).data)
+        return Response(semester_user)
 
    
         
