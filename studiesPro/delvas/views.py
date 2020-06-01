@@ -24,7 +24,7 @@ class DelvasViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'delvas.view_delvas',
                     'destroy': evaluate,
-                    'update': True,
+                    'update': evaluate,
                     'partial_update': 'delvas.change_delvas',
                     'update_name': evaluate,
                     'update_date': evaluate               

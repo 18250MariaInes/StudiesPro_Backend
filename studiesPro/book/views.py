@@ -24,7 +24,7 @@ class BookViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'book.view_book',
                     'destroy': evaluate,
-                    'update': True,
+                    'update': evaluate,
                     'partial_update': 'book.change_book',
                     'update_title': evaluate,
                     'update_description': evaluate,

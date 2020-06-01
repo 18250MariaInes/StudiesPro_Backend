@@ -33,7 +33,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'assignment.view_assignment',
                     'destroy': 'assignment.destroy_assignment',
-                    'update': True,
+                    'update': evaluar,
                     'partial_update': 'assignment.change_assignment',
                     'notify': evaluar,
                     'update_title': evaluar,

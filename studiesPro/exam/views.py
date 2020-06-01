@@ -30,7 +30,7 @@ class ExamViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'exam.view_exam',
                     'destroy': 'exam.destroy_exam',
-                    'update': True,
+                    'update': evaluar,
                     'partial_update': 'exam.change_exam',
                     'notify': evaluar,
                     'update_title': evaluar,

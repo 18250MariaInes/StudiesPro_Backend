@@ -29,7 +29,7 @@ class ProviderViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'provider.view_provider',
                     'destroy': 'provider.destroy_provider',
-                    'update': True,
+                    'update': evaluar,
                     'partial_update': 'provider.change_provider',
                     'notify': evaluar,
                     'update_name': evaluar,

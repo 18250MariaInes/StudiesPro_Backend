@@ -28,7 +28,7 @@ class SshipeventViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'sshipevent.view_sshipevent',
                     'destroy': 'sshipevent.destroy_sshipevent',
-                    'update': True,
+                    'update': evaluar,
                     'partial_update': 'sshipevent.change_sshipevent',
                     'notify': evaluar,
                     'update_name': evaluar,

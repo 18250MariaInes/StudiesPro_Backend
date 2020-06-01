@@ -28,7 +28,7 @@ class MaterialViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'material.view_material',
                     'destroy': 'material.destroy_material',
-                    'update': True,
+                    'update': evaluar,
                     'partial_update': 'material.change_material',
                     'notify': evaluar,
                     'update_name': evaluar,

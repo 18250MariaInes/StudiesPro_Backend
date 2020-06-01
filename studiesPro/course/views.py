@@ -28,7 +28,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                 'instance': {
                     'retrieve': 'course.view_course',
                     'destroy': evaluate,
-                    'update': True,
+                    'update': evaluate,
                     'partial_update': 'course.change_course',
                     'exams':evaluate,
                     'assignments':evaluate,
